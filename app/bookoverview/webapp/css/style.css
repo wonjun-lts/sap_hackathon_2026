@@ -43,3 +43,58 @@ button[id*="FilterBar"][id$="btnSearch"] .sapMBtnContent::after {
 .sapMListTbl .sapMObjStatus {
   justify-content: center;
 }
+
+.sapUxAPObjectPageHeaderTitle {
+  min-height: 6.5rem;
+}
+
+.sapUxAPObjectPageHeaderIdentifier {
+  align-items: flex-start;
+  padding-top: 1.25rem;
+}
+
+.sapUxAPObjectPageHeaderIdentifier .sapUxAPObjectPageHeaderIdentifierTitle,
+.sapUxAPObjectPageHeaderIdentifier .sapMTitle {
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 2.25rem;
+}
+
+.sapUxAPObjectPageHeaderIdentifier .sapUxAPObjectPageHeaderIdentifierDescription,
+.sapUxAPObjectPageHeaderIdentifier .sapMText {
+  color: #1d2d3e;
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+
+.sapUxAPObjectPageHeaderContent {
+  align-items: flex-start;
+  gap: 2rem;
+  padding-bottom: 1.25rem;
+  padding-top: 0.25rem;
+}
+
+.sapUxAPObjectPageHeaderContent .sapUiFormTitle,
+.sapUxAPObjectPageHeaderContent .sapUxAPObjectPageHeaderContentItem > .sapMTitle {
+  display: none;
+}
+
+.sapUxAPObjectPageHeaderContent .sapUiFormResGrid > div {
+  padding-bottom: 0;
+}
+
+.sapUxAPObjectPageHeaderContent .sapMLabel {
+  color: #6a6d70;
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+.sapUxAPObjectPageHeaderContent .sapMText {
+  color: #111827;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.sapUxAPObjectPageHeaderContent .sapMText:first-child {
+  display: inline-block;
+}

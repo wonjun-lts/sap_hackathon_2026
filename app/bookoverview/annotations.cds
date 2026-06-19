@@ -6,11 +6,17 @@ annotate service.BookOverviews with @(
     TypeNamePlural: '書籍売上・在庫一覧',
     Title: {
       Value: TITLE
-    },
-    Description: {
-      Value: RETURN_RISK_LEVEL
     }
   },
+
+  UI.HeaderFacets: [
+    {
+      $Type: 'UI.ReferenceFacet',
+      ID: 'BookHeaderFacet',
+      Label: '',
+      Target: '@UI.FieldGroup#BookHeader'
+    }
+  ],
 
   UI.LineItem: [
     {
@@ -68,51 +74,6 @@ annotate service.BookOverviews with @(
     Data: [
       {
         $Type: 'UI.DataField',
-        Label: '書籍ID',
-        Value: BOOK_ID
-      },
-      {
-        $Type: 'UI.DataField',
-        Label: '書籍名',
-        Value: TITLE
-      },
-      {
-        $Type: 'UI.DataField',
-        Label: '著者',
-        Value: AUTHOR_NAME
-      },
-      {
-        $Type: 'UI.DataField',
-        Label: '出版社',
-        Value: PUBLISHER
-      },
-      {
-        $Type: 'UI.DataField',
-        Label: 'ジャンル',
-        Value: GENRE
-      },
-      {
-        $Type: 'UI.DataField',
-        Label: '発売日',
-        Value: RELEASE_DATE
-      },
-      {
-        $Type: 'UI.DataField',
-        Label: '単価',
-        Value: UNIT_PRICE
-      },
-      {
-        $Type: 'UI.DataField',
-        Label: '通貨',
-        Value: CURRENCY
-      },
-      {
-        $Type: 'UI.DataField',
-        Label: 'ステータス',
-        Value: BOOK_STATUS
-      },
-      {
-        $Type: 'UI.DataField',
         Label: '売上冊数',
         Value: TOTAL_SOLD_QTY
       },
@@ -155,6 +116,37 @@ annotate service.BookOverviews with @(
     ]
   },
 
+  UI.FieldGroup #BookHeader: {
+    $Type: 'UI.FieldGroupType',
+    Data: [
+      {
+        $Type: 'UI.DataField',
+        Label: 'ジャンル',
+        Value: GENRE
+      },
+      {
+        $Type: 'UI.DataField',
+        Label: '価格（円）',
+        Value: UNIT_PRICE_DISPLAY
+      },
+      {
+        $Type: 'UI.DataField',
+        Label: '著者',
+        Value: AUTHOR_NAME
+      },
+      {
+        $Type: 'UI.DataField',
+        Label: 'ステータス',
+        Value: BOOK_STATUS
+      },
+      {
+        $Type: 'UI.DataField',
+        Label: '発売日',
+        Value: RELEASE_DATE
+      }
+    ]
+  },
+
   UI.Facets: [
     {
       $Type: 'UI.ReferenceFacet',
@@ -183,6 +175,7 @@ annotate service.BookOverviews with {
   BOOK_STATUS @Common.Label: 'ステータス';
   RETURN_RISK_LEVEL @Common.Label: '返品リスク';
   TOTAL_SALES_AMOUNT_DISPLAY @Common.Label: '売上金額';
+  UNIT_PRICE_DISPLAY @Common.Label: '価格（円）';
   TOTAL_STOCK_QTY @Common.Label: '総在庫数';
 };
 

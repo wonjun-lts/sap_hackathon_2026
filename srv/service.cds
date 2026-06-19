@@ -18,6 +18,7 @@ service CloversFioriService {
   entity BookOverviews as projection on BOOK_OVERVIEW {
     *,
     cast(TOTAL_SALES_AMOUNT as Integer) as TOTAL_SALES_AMOUNT_DISPLAY,
+    cast(UNIT_PRICE as Integer) as UNIT_PRICE_DISPLAY,
     cast(case
       when RETURN_RISK_LEVEL = 'High' then 1
       else 0
@@ -185,11 +186,17 @@ annotate CloversFioriService.BookOverviews with @(
     TypeNamePlural: '書籍売上・在庫一覧',
     Title: {
       Value: TITLE
-    },
-    Description: {
-      Value: RETURN_RISK_LEVEL
     }
   },
+
+  UI.HeaderFacets: [
+    {
+      $Type: 'UI.ReferenceFacet',
+      ID: 'BookHeaderFacet',
+      Label: '',
+      Target: '@UI.FieldGroup#BookHeader'
+    }
+  ],
 
   UI.LineItem: [
     { Value: BOOK_ID, Label: '書籍ID' },
@@ -215,15 +222,6 @@ annotate CloversFioriService.BookOverviews with @(
 
   UI.FieldGroup #Summary: {
     Data: [
-      { Value: BOOK_ID, Label: '書籍ID' },
-      { Value: TITLE, Label: '書籍名' },
-      { Value: AUTHOR_NAME, Label: '著者' },
-      { Value: PUBLISHER, Label: '出版社' },
-      { Value: GENRE, Label: 'ジャンル' },
-      { Value: RELEASE_DATE, Label: '発売日' },
-      { Value: UNIT_PRICE, Label: '単価' },
-      { Value: CURRENCY, Label: '通貨' },
-      { Value: BOOK_STATUS, Label: 'ステータス' },
       { Value: TOTAL_SOLD_QTY, Label: '売上冊数' },
       { Value: TOTAL_SALES_AMOUNT_DISPLAY, Label: '売上金額' },
       { Value: TOTAL_STOCK_QTY, Label: '総在庫数' },
@@ -232,6 +230,16 @@ annotate CloversFioriService.BookOverviews with @(
       { Value: RETURN_RATE, Label: '返品率' },
       { Value: RETURN_RISK_LEVEL, Label: '返品リスク', Criticality: RETURN_RISK_CRITICALITY },
       { Value: RECOMMENDED_ACTION, Label: '推奨アクション' }
+    ]
+  },
+
+  UI.FieldGroup #BookHeader: {
+    Data: [
+      { Value: GENRE, Label: 'ジャンル' },
+      { Value: UNIT_PRICE_DISPLAY, Label: '価格（円）' },
+      { Value: AUTHOR_NAME, Label: '著者' },
+      { Value: BOOK_STATUS, Label: 'ステータス' },
+      { Value: RELEASE_DATE, Label: '発売日' }
     ]
   },
 
@@ -263,6 +271,7 @@ annotate CloversFioriService.BookOverviews with {
   BOOK_STATUS @Common.Label: 'ステータス';
   RETURN_RISK_LEVEL @Common.Label: '返品リスク';
   TOTAL_SALES_AMOUNT_DISPLAY @Common.Label: '売上金額';
+  UNIT_PRICE_DISPLAY @Common.Label: '価格（円）';
   TOTAL_STOCK_QTY @Common.Label: '総在庫数';
 };
 
