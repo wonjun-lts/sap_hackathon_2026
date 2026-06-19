@@ -1,0 +1,141 @@
+_schema-version: 3.3.0
+ID: test-choi
+description: A simple CAP project.
+version: 1.0.0
+modules:
+- name: test-choi-srv
+  type: nodejs
+  path: gen/srv
+  requires:
+  - name: test-choi-auth
+  - name: test-choi-db
+  provides:
+  - name: srv-api
+    properties:
+      srv-url: ${default-url}
+  parameters:
+    buildpack: nodejs_buildpack
+    instances: 1
+  build-parameters:
+    builder: npm-ci
+- name: test-choi-db-deployer
+  type: hdb
+  path: gen/db
+  requires:
+  - name: test-choi-db
+  parameters:
+    buildpack: nodejs_buildpack
+- name: test-choi-destination-content
+  type: com.sap.application.content
+  requires:
+  - name: test-choi-auth
+    parameters:
+      service-key:
+        name: test-choi-auth-key
+  - name: test-choi-repo-host
+    parameters:
+      service-key:
+        name: test-choi-repo-host-key
+  - name: srv-api
+  - name: test-choi-destination-service
+    parameters:
+      content-target: true
+  parameters:
+    content:
+      instance:
+        destinations:
+        - Name: test-choi-html5-repo-host
+          ServiceInstanceName: test-choi-html5-service
+          ServiceKeyName: test-choi-repo-host-key
+          sap.cloud.service: test-choi.service
+        - Authentication: OAuth2UserTokenExchange
+          Name: test-choi-uaa
+          ServiceInstanceName: test-choi-auth
+          ServiceKeyName: test-choi-auth-key
+          sap.cloud.service: test-choi.service
+        - Name: test-choi-srv-api
+          URL: ~{srv-api/srv-url}
+          Authentication: NoAuthentication
+          Type: HTTP
+          ProxyType: Internet
+          HTML5.DynamicDestination: true
+          HTML5.ForwardAuthToken: true
+          sap.cloud.service: test-choi.service
+        existing_destinations_policy: update
+  build-parameters:
+    no-source: true
+- name: test-choi-app-content
+  type: com.sap.application.content
+  path: .
+  requires:
+  - name: test-choi-repo-host
+    parameters:
+      content-target: true
+  build-parameters:
+    build-result: resources
+    requires:
+    - artifacts:
+      - cloversfioribookoverview.zip
+      name: cloversfioribookoverview
+      target-path: resources/
+- name: cloversfioribookoverview
+  type: html5
+  path: app/bookoverview
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+resources:
+- name: test-choi-auth
+  type: org.cloudfoundry.managed-service
+  parameters:
+    config:
+      oauth2-configuration:
+        credential-types:
+        - binding-secret
+        - x509
+      tenant-mode: dedicated
+      xsappname: test-choi-${org}-${space}
+    path: ./xs-security.json
+    service: xsuaa
+    service-plan: application
+- name: test-choi-db
+  type: com.sap.xs.hdi-container
+  parameters:
+    service: hana
+    service-plan: hdi-shared
+- name: test-choi-repo-host
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: html5-apps-repo
+    service-name: test-choi-html5-service
+    service-plan: app-host
+- name: test-choi-destination-service
+  type: org.cloudfoundry.managed-service
+  parameters:
+    config:
+      HTML5Runtime_enabled: true
+      init_data:
+        instance:
+          destinations:
+          - Authentication: NoAuthentication
+            Name: ui5
+            ProxyType: Internet
+            Type: HTTP
+            URL: https://ui5.sap.com
+          existing_destinations_policy: update
+      version: 1.0.0
+    service: destination
+    service-name: test-choi-destination-service
+    service-plan: lite
+parameters:
+  enable-parallel-deployments: true
+build-parameters:
+  before-all:
+  - builder: custom
+    commands:
+    - npm ci
+    - npx cds build --production

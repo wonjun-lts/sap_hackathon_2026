@@ -1,0 +1,9 @@
+﻿STORE_ID,BP_ID,STORE_NAME,STORE_ROLE,CHANNEL_TYPE,AREA,PREFECTURE,CITY,ADDRESS_SUMMARY,STORE_SIZE_RANK,MAIN_GENRE,LOGISTICS_PARTNER_ID,ACTIVE_FLAG,SOURCE_SYSTEM
+S100,BP_STORE_100,鳥取books 本店,返品元候補,書店,中国地方,鳥取県,鳥取市,鳥取駅前エリア,B,ビジネス,LP001,true,外部店舗マスタ
+S101,BP_STORE_101,米子ブックセンター,返品元候補,書店,中国地方,鳥取県,米子市,米子駅周辺,B,IT,LP001,true,外部店舗マスタ
+S102,BP_STORE_102,倉吉まちの書房,販売強化候補,書店,中国地方,鳥取県,倉吉市,白壁土蔵群エリア,C,地域,LP002,true,外部店舗マスタ
+S103,BP_STORE_103,松江リバーブックス,返品元候補,書店,中国地方,島根県,松江市,松江駅前商店街,B,旅行,LP002,true,外部店舗マスタ
+S104,BP_STORE_104,広島ビジネス書房,再配分先候補,書店,中国地方,広島県,広島市,紙屋町ビジネス街,A,ビジネス,LP003,true,外部店舗マスタ
+S200,BP_SHUPP_001,Shuppansha本社倉庫,出版社,出版社倉庫,関東,東京都,千代田区,本社物流拠点,,,LP001,true,S4HANA
+S300,BP_EC_001,ECモール在庫,再配分先候補,EC,全国,,,EC販売用在庫,,IT,LP003,true,外部店舗マスタ
+S301,BP_WH_301,山陰取次センター,取次倉庫,取次倉庫,中国地方,鳥取県,境港市,山陰エリア共配倉庫,,,LP004,true,取次データ

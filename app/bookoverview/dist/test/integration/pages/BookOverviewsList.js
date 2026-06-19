@@ -1,0 +1,2 @@
+sap.ui.define(["sap/fe/test/ListReport"],function(e){"use strict";var o={actions:{},assertions:{}};return new e({appId:"clovers.fiori.bookoverview",componentId:"BookOverviewsList",contextPath:"/BookOverviews"},o)});
+//# sourceMappingURL=BookOverviewsList.js.map

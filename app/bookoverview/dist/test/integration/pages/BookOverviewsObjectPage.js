@@ -1,0 +1,2 @@
+sap.ui.define(["sap/fe/test/ObjectPage","sap/ui/test/actions/Press"],function(e,t){"use strict";var o={actions:{iPressSectionIconTabFilterButton:function(e){return this.waitFor({id:new RegExp(`.*--fe::FacetSection::${e}-anchor$`),actions:new t})}},assertions:{}};return new e({appId:"clovers.fiori.bookoverview",componentId:"BookOverviewsObjectPage",contextPath:"/BookOverviews"},o)});
+//# sourceMappingURL=BookOverviewsObjectPage.js.map

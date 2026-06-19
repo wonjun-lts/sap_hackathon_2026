@@ -1,0 +1,2 @@
+sap.ui.define(["sap/fe/test/JourneyRunner","clovers/fiori/bookoverview/test/integration/pages/BookOverviewsList","clovers/fiori/bookoverview/test/integration/pages/BookOverviewsObjectPage"],function(e,o,r){"use strict";var i=new e({launchUrl:sap.ui.require.toUrl("clovers/fiori/bookoverview")+"/test/flp.html#app-preview",pages:{onTheBookOverviewsList:o,onTheBookOverviewsObjectPage:r},async:true});return i});
+//# sourceMappingURL=JourneyRunner.js.map
