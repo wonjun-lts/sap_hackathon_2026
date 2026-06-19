@@ -17,6 +17,12 @@ service CloversFioriService {
 
   entity BookOverviews as projection on BOOK_OVERVIEW {
     *,
+    cast(TOTAL_SALES_AMOUNT as Integer) as TOTAL_SALES_AMOUNT_DISPLAY,
+    cast(UNIT_PRICE as Integer) as UNIT_PRICE_DISPLAY,
+    cast(case
+      when RETURN_RISK_LEVEL = 'High' then 1
+      else 0
+    end as Integer) as RETURN_RISK_CRITICALITY,
     inventorySnapshots,
     communicationEvents
   };
@@ -180,55 +186,58 @@ annotate CloversFioriService.BookOverviews with @(
     TypeNamePlural: '書籍売上・在庫一覧',
     Title: {
       Value: TITLE
-    },
-    Description: {
-      Value: RETURN_RISK_LEVEL
     }
   },
+
+  UI.HeaderFacets: [
+    {
+      $Type: 'UI.ReferenceFacet',
+      ID: 'BookHeaderFacet',
+      Label: '',
+      Target: '@UI.FieldGroup#BookHeader'
+    }
+  ],
 
   UI.LineItem: [
     { Value: BOOK_ID, Label: '書籍ID' },
     { Value: TITLE, Label: '書籍名' },
     { Value: AUTHOR_NAME, Label: '著者' },
-    { Value: GENRE, Label: 'ジャンル' },
     { Value: BOOK_STATUS, Label: 'ステータス' },
     { Value: TOTAL_SOLD_QTY, Label: '売上冊数' },
-    { Value: TOTAL_SALES_AMOUNT, Label: '売上金額' },
-    { Value: TOTAL_STOCK_QTY, Label: '在庫数' },
-    { Value: AVAILABLE_QTY, Label: '引当可能数' },
+    { Value: TOTAL_SALES_AMOUNT_DISPLAY, Label: '売上金額' },
+    { Value: AVAILABLE_QTY, Label: '販売可能在庫数' },
     { Value: RETURN_QTY, Label: '返品数' },
     { Value: RETURN_RATE, Label: '返品率' },
-    { Value: RETURN_RISK_LEVEL, Label: '返品リスク' },
-    { Value: RECOMMENDED_ACTION, Label: '推奨アクション' }
+    { Value: RETURN_RISK_LEVEL, Label: '返品リスク', Criticality: RETURN_RISK_CRITICALITY },
+    { Value: TOTAL_STOCK_QTY, Label: '総在庫数' }
   ],
 
   UI.SelectionFields: [
     TITLE,
     AUTHOR_NAME,
-    GENRE,
     BOOK_STATUS,
     RETURN_RISK_LEVEL
   ],
 
   UI.FieldGroup #Summary: {
     Data: [
-      { Value: BOOK_ID, Label: '書籍ID' },
-      { Value: TITLE, Label: '書籍名' },
-      { Value: AUTHOR_NAME, Label: '著者' },
-      { Value: PUBLISHER, Label: '出版社' },
-      { Value: GENRE, Label: 'ジャンル' },
-      { Value: RELEASE_DATE, Label: '発売日' },
-      { Value: UNIT_PRICE, Label: '単価' },
-      { Value: CURRENCY, Label: '通貨' },
-      { Value: BOOK_STATUS, Label: 'ステータス' },
       { Value: TOTAL_SOLD_QTY, Label: '売上冊数' },
-      { Value: TOTAL_SALES_AMOUNT, Label: '売上金額' },
-      { Value: TOTAL_STOCK_QTY, Label: '在庫数' },
-      { Value: AVAILABLE_QTY, Label: '引当可能数' },
+      { Value: TOTAL_SALES_AMOUNT_DISPLAY, Label: '売上金額' },
+      { Value: TOTAL_STOCK_QTY, Label: '総在庫数' },
+      { Value: AVAILABLE_QTY, Label: '販売可能在庫数' },
       { Value: RETURN_QTY, Label: '返品数' },
       { Value: RETURN_RATE, Label: '返品率' },
-      { Value: RETURN_RISK_LEVEL, Label: '返品リスク' },
-      { Value: RECOMMENDED_ACTION, Label: '推奨アクション' }
+      { Value: RETURN_RISK_LEVEL, Label: '返品リスク', Criticality: RETURN_RISK_CRITICALITY },
+    ]
+  },
+
+  UI.FieldGroup #BookHeader: {
+    Data: [
+      { Value: GENRE, Label: 'ジャンル' },
+      { Value: UNIT_PRICE_DISPLAY, Label: '価格（円）' },
+      { Value: AUTHOR_NAME, Label: '著者' },
+      { Value: BOOK_STATUS, Label: 'ステータス' },
+      { Value: RELEASE_DATE, Label: '発売日' }
     ]
   },
 
@@ -254,19 +263,27 @@ annotate CloversFioriService.BookOverviews with @(
   ]
 );
 
+annotate CloversFioriService.BookOverviews with {
+  TITLE @Common.Label: '書籍名';
+  AUTHOR_NAME @Common.Label: '著者';
+  BOOK_STATUS @Common.Label: 'ステータス';
+  RETURN_RISK_LEVEL @Common.Label: '返品リスク';
+  TOTAL_SALES_AMOUNT_DISPLAY @Common.Label: '売上金額';
+  UNIT_PRICE_DISPLAY @Common.Label: '価格（円）';
+  TOTAL_STOCK_QTY @Common.Label: '総在庫数';
+};
+
 annotate CloversFioriService.InventorySnapshots with @(
   UI.LineItem: [
     { Value: SNAPSHOT_DATE, Label: '基準日' },
     { Value: STORE_ID, Label: '店舗ID' },
-    { Value: INVENTORY_OWNER, Label: '在庫所有者' },
     { Value: LOCATION_TYPE, Label: '場所種別' },
     { Value: STOCK_QTY, Label: '在庫数' },
-    { Value: AVAILABLE_QTY, Label: '引当可能数' },
+    { Value: AVAILABLE_QTY, Label: '販売可能在庫数' },
     { Value: RESERVED_QTY, Label: '引当済数' },
     { Value: DAYS_IN_STOCK, Label: '滞留日数' },
     { Value: LAST_RECEIPT_DATE, Label: '最終入荷日' },
     { Value: LAST_SOLD_DATE, Label: '最終販売日' },
-    { Value: DATA_CONFIDENCE, Label: '信頼度' }
   ]
 );
 
@@ -276,10 +293,7 @@ annotate CloversFioriService.CommunicationEvents with @(
     { Value: SOURCE_CHANNEL, Label: 'チャネル' },
     { Value: SENDER_TYPE, Label: '送信者区分' },
     { Value: SENDER_NAME, Label: '送信者名' },
-    { Value: RELATED_STORE_ID, Label: '関連店舗' },
-    { Value: EVENT_TYPE, Label: 'イベント種別' },
-    { Value: EVENT_CONFIDENCE, Label: '信頼度' },
+    { Value: EVENT_TYPE, Label: 'コミュニケーション種別' },
     { Value: EXTRACTED_TEXT, Label: '抽出テキスト' },
-    { Value: CREATED_BY_AGENT, Label: 'Agent作成' }
   ]
 );

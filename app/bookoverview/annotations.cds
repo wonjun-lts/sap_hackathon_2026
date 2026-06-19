@@ -1,16 +1,24 @@
 using CloversFioriService as service from '../../srv/service';
 
 annotate service.BookOverviews with @(
+  Capabilities.DeleteRestrictions.Deletable: false,
+
   UI.HeaderInfo: {
     TypeName: '書籍サマリ',
     TypeNamePlural: '書籍売上・在庫一覧',
     Title: {
       Value: TITLE
-    },
-    Description: {
-      Value: RETURN_RISK_LEVEL
     }
   },
+
+  UI.HeaderFacets: [
+    {
+      $Type: 'UI.ReferenceFacet',
+      ID: 'BookHeaderFacet',
+      Label: '',
+      Target: '@UI.FieldGroup#BookHeader'
+    }
+  ],
 
   UI.LineItem: [
     {
@@ -36,24 +44,29 @@ annotate service.BookOverviews with @(
     {
       $Type: 'UI.DataField',
       Label: '売上金額',
-      Value: TOTAL_SALES_AMOUNT
+      Value: TOTAL_SALES_AMOUNT_DISPLAY
     },
     {
       $Type: 'UI.DataField',
-      Label: '引当可能数',
+      Label: '販売可能在庫数',
       Value: AVAILABLE_QTY
     },
     {
       $Type: 'UI.DataField',
       Label: '返品リスク',
-      Value: RETURN_RISK_LEVEL
+      Value: RETURN_RISK_LEVEL,
+      Criticality: RETURN_RISK_CRITICALITY
+    },
+    {
+      $Type: 'UI.DataField',
+      Label: '総在庫数',
+      Value: TOTAL_STOCK_QTY
     }
   ],
 
   UI.SelectionFields: [
     TITLE,
     AUTHOR_NAME,
-    GENRE,
     BOOK_STATUS,
     RETURN_RISK_LEVEL
   ],
@@ -63,67 +76,22 @@ annotate service.BookOverviews with @(
     Data: [
       {
         $Type: 'UI.DataField',
-        Label: '書籍ID',
-        Value: BOOK_ID
-      },
-      {
-        $Type: 'UI.DataField',
-        Label: '書籍名',
-        Value: TITLE
-      },
-      {
-        $Type: 'UI.DataField',
-        Label: '著者',
-        Value: AUTHOR_NAME
-      },
-      {
-        $Type: 'UI.DataField',
-        Label: '出版社',
-        Value: PUBLISHER
-      },
-      {
-        $Type: 'UI.DataField',
-        Label: 'ジャンル',
-        Value: GENRE
-      },
-      {
-        $Type: 'UI.DataField',
-        Label: '発売日',
-        Value: RELEASE_DATE
-      },
-      {
-        $Type: 'UI.DataField',
-        Label: '単価',
-        Value: UNIT_PRICE
-      },
-      {
-        $Type: 'UI.DataField',
-        Label: '通貨',
-        Value: CURRENCY
-      },
-      {
-        $Type: 'UI.DataField',
-        Label: 'ステータス',
-        Value: BOOK_STATUS
-      },
-      {
-        $Type: 'UI.DataField',
         Label: '売上冊数',
         Value: TOTAL_SOLD_QTY
       },
       {
         $Type: 'UI.DataField',
         Label: '売上金額',
-        Value: TOTAL_SALES_AMOUNT
+        Value: TOTAL_SALES_AMOUNT_DISPLAY
       },
       {
         $Type: 'UI.DataField',
-        Label: '在庫数',
+        Label: '総在庫数',
         Value: TOTAL_STOCK_QTY
       },
       {
         $Type: 'UI.DataField',
-        Label: '引当可能数',
+        Label: '販売可能在庫数',
         Value: AVAILABLE_QTY
       },
       {
@@ -139,12 +107,39 @@ annotate service.BookOverviews with @(
       {
         $Type: 'UI.DataField',
         Label: '返品リスク',
-        Value: RETURN_RISK_LEVEL
+        Value: RETURN_RISK_LEVEL,
+        Criticality: RETURN_RISK_CRITICALITY
+      }
+    ]
+  },
+
+  UI.FieldGroup #BookHeader: {
+    $Type: 'UI.FieldGroupType',
+    Data: [
+      {
+        $Type: 'UI.DataField',
+        Label: 'ジャンル',
+        Value: GENRE
       },
       {
         $Type: 'UI.DataField',
-        Label: '推奨アクション',
-        Value: RECOMMENDED_ACTION
+        Label: '価格（円）',
+        Value: UNIT_PRICE_DISPLAY
+      },
+      {
+        $Type: 'UI.DataField',
+        Label: '著者',
+        Value: AUTHOR_NAME
+      },
+      {
+        $Type: 'UI.DataField',
+        Label: 'ステータス',
+        Value: BOOK_STATUS
+      },
+      {
+        $Type: 'UI.DataField',
+        Label: '発売日',
+        Value: RELEASE_DATE
       }
     ]
   },
@@ -171,6 +166,16 @@ annotate service.BookOverviews with @(
   ]
 );
 
+annotate service.BookOverviews with {
+  TITLE @Common.Label: '書籍名';
+  AUTHOR_NAME @Common.Label: '著者';
+  BOOK_STATUS @Common.Label: 'ステータス';
+  RETURN_RISK_LEVEL @Common.Label: '返品リスク';
+  TOTAL_SALES_AMOUNT_DISPLAY @Common.Label: '売上金額';
+  UNIT_PRICE_DISPLAY @Common.Label: '価格（円）';
+  TOTAL_STOCK_QTY @Common.Label: '総在庫数';
+};
+
 annotate service.InventorySnapshots with @(
   UI.LineItem: [
     {
@@ -185,11 +190,6 @@ annotate service.InventorySnapshots with @(
     },
     {
       $Type: 'UI.DataField',
-      Label: '在庫所有者',
-      Value: INVENTORY_OWNER
-    },
-    {
-      $Type: 'UI.DataField',
       Label: '場所種別',
       Value: LOCATION_TYPE
     },
@@ -200,7 +200,7 @@ annotate service.InventorySnapshots with @(
     },
     {
       $Type: 'UI.DataField',
-      Label: '引当可能数',
+      Label: '販売可能在庫数',
       Value: AVAILABLE_QTY
     },
     {
@@ -222,11 +222,6 @@ annotate service.InventorySnapshots with @(
       $Type: 'UI.DataField',
       Label: '最終販売日',
       Value: LAST_SOLD_DATE
-    },
-    {
-      $Type: 'UI.DataField',
-      Label: '信頼度',
-      Value: DATA_CONFIDENCE
     }
   ]
 );
@@ -255,28 +250,13 @@ annotate service.CommunicationEvents with @(
     },
     {
       $Type: 'UI.DataField',
-      Label: '関連店舗',
-      Value: RELATED_STORE_ID
-    },
-    {
-      $Type: 'UI.DataField',
-      Label: 'イベント種別',
+      Label: 'コミュニケーション種別',
       Value: EVENT_TYPE
-    },
-    {
-      $Type: 'UI.DataField',
-      Label: '信頼度',
-      Value: EVENT_CONFIDENCE
     },
     {
       $Type: 'UI.DataField',
       Label: '抽出テキスト',
       Value: EXTRACTED_TEXT
-    },
-    {
-      $Type: 'UI.DataField',
-      Label: 'Agent作成',
-      Value: CREATED_BY_AGENT
     }
   ]
 );

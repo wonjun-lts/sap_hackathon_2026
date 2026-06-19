@@ -1,0 +1,21 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    core:require="{handler: 'clovers/fiori/bookoverview/ext/controller/BookOverviewObjectPage.controller'}">
+    <VBox class="aiConsultHeaderFacet sapUiTinyMarginTop">
+        <Button
+            id="backToListButton"
+            class="backToListButton"
+            text="一覧へ戻る"
+            type="Transparent"
+            icon="sap-icon://nav-back"
+            press="handler.onBackToList" />
+        <Button
+            id="aiConsultButton"
+            class="aiConsultButton"
+            text="AIに相談"
+            type="Emphasized"
+            icon="sap-icon://discussion-2"
+            press="handler.onOpenBookLink" />
+    </VBox>
+</core:FragmentDefinition>
