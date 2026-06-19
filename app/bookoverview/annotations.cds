@@ -1,6 +1,8 @@
 using CloversFioriService as service from '../../srv/service';
 
 annotate service.BookOverviews with @(
+  Capabilities.DeleteRestrictions.Deletable: false,
+
   UI.HeaderInfo: {
     TypeName: '書籍サマリ',
     TypeNamePlural: '書籍売上・在庫一覧',
@@ -107,11 +109,6 @@ annotate service.BookOverviews with @(
         Label: '返品リスク',
         Value: RETURN_RISK_LEVEL,
         Criticality: RETURN_RISK_CRITICALITY
-      },
-      {
-        $Type: 'UI.DataField',
-        Label: '推奨アクション',
-        Value: RECOMMENDED_ACTION
       }
     ]
   },
@@ -193,11 +190,6 @@ annotate service.InventorySnapshots with @(
     },
     {
       $Type: 'UI.DataField',
-      Label: '在庫所有者',
-      Value: INVENTORY_OWNER
-    },
-    {
-      $Type: 'UI.DataField',
       Label: '場所種別',
       Value: LOCATION_TYPE
     },
@@ -230,11 +222,6 @@ annotate service.InventorySnapshots with @(
       $Type: 'UI.DataField',
       Label: '最終販売日',
       Value: LAST_SOLD_DATE
-    },
-    {
-      $Type: 'UI.DataField',
-      Label: '信頼度',
-      Value: DATA_CONFIDENCE
     }
   ]
 );
@@ -263,28 +250,13 @@ annotate service.CommunicationEvents with @(
     },
     {
       $Type: 'UI.DataField',
-      Label: '関連店舗',
-      Value: RELATED_STORE_ID
-    },
-    {
-      $Type: 'UI.DataField',
-      Label: 'イベント種別',
+      Label: 'コミュニケーション種別',
       Value: EVENT_TYPE
-    },
-    {
-      $Type: 'UI.DataField',
-      Label: '信頼度',
-      Value: EVENT_CONFIDENCE
     },
     {
       $Type: 'UI.DataField',
       Label: '抽出テキスト',
       Value: EXTRACTED_TEXT
-    },
-    {
-      $Type: 'UI.DataField',
-      Label: 'Agent作成',
-      Value: CREATED_BY_AGENT
     }
   ]
 );

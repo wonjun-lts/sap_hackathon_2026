@@ -209,7 +209,6 @@ annotate CloversFioriService.BookOverviews with @(
     { Value: RETURN_QTY, Label: '返品数' },
     { Value: RETURN_RATE, Label: '返品率' },
     { Value: RETURN_RISK_LEVEL, Label: '返品リスク', Criticality: RETURN_RISK_CRITICALITY },
-    { Value: RECOMMENDED_ACTION, Label: '推奨アクション' },
     { Value: TOTAL_STOCK_QTY, Label: '総在庫数' }
   ],
 
@@ -229,7 +228,6 @@ annotate CloversFioriService.BookOverviews with @(
       { Value: RETURN_QTY, Label: '返品数' },
       { Value: RETURN_RATE, Label: '返品率' },
       { Value: RETURN_RISK_LEVEL, Label: '返品リスク', Criticality: RETURN_RISK_CRITICALITY },
-      { Value: RECOMMENDED_ACTION, Label: '推奨アクション' }
     ]
   },
 
@@ -279,7 +277,6 @@ annotate CloversFioriService.InventorySnapshots with @(
   UI.LineItem: [
     { Value: SNAPSHOT_DATE, Label: '基準日' },
     { Value: STORE_ID, Label: '店舗ID' },
-    { Value: INVENTORY_OWNER, Label: '在庫所有者' },
     { Value: LOCATION_TYPE, Label: '場所種別' },
     { Value: STOCK_QTY, Label: '在庫数' },
     { Value: AVAILABLE_QTY, Label: '販売可能在庫数' },
@@ -287,7 +284,6 @@ annotate CloversFioriService.InventorySnapshots with @(
     { Value: DAYS_IN_STOCK, Label: '滞留日数' },
     { Value: LAST_RECEIPT_DATE, Label: '最終入荷日' },
     { Value: LAST_SOLD_DATE, Label: '最終販売日' },
-    { Value: DATA_CONFIDENCE, Label: '信頼度' }
   ]
 );
 
@@ -297,10 +293,7 @@ annotate CloversFioriService.CommunicationEvents with @(
     { Value: SOURCE_CHANNEL, Label: 'チャネル' },
     { Value: SENDER_TYPE, Label: '送信者区分' },
     { Value: SENDER_NAME, Label: '送信者名' },
-    { Value: RELATED_STORE_ID, Label: '関連店舗' },
-    { Value: EVENT_TYPE, Label: 'イベント種別' },
-    { Value: EVENT_CONFIDENCE, Label: '信頼度' },
+    { Value: EVENT_TYPE, Label: 'コミュニケーション種別' },
     { Value: EXTRACTED_TEXT, Label: '抽出テキスト' },
-    { Value: CREATED_BY_AGENT, Label: 'Agent作成' }
   ]
 );

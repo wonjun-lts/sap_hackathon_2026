@@ -144,7 +144,16 @@
           "options": {
             "settings": {
               "editableHeaderContent": false,
-              "contextPath": "/BookOverviews"
+              "contextPath": "/BookOverviews",
+              "content": {
+                "header": {
+                  "facets": {
+                    "AIConsultHeaderFacet": {
+                      "template": "clovers.fiori.bookoverview.ext.fragment.AIConsultHeaderFacet"
+                    }
+                  }
+                }
+              }
             }
           }
         }

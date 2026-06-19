@@ -157,7 +157,24 @@
 					"options": {
 						"settings": {
 							"editableHeaderContent": false,
-							"contextPath": "/BookOverviews"
+							"contextPath": "/BookOverviews",
+							"content": {
+								"header": {
+									"actions": {
+										"BackToList": {
+											"text": "一覧へ戻る",
+											"press": "clovers.fiori.bookoverview.ext.controller.BookOverviewObjectPage.onBackToList",
+											"visible": true,
+											"enabled": true
+										}
+									},
+									"facets": {
+										"AIConsultHeaderFacet": {
+											"template": "clovers.fiori.bookoverview.ext.fragment.AIConsultHeaderFacet"
+										}
+									}
+								}
+							}
 						}
 					}
 				}

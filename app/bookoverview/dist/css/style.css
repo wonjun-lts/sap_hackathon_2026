@@ -98,3 +98,39 @@ button[id*="FilterBar"][id$="btnSearch"] .sapMBtnContent::after {
 .sapUxAPObjectPageHeaderContent .sapMText:first-child {
   display: inline-block;
 }
+
+.aiConsultHeaderFacet {
+  padding-top: 0.125rem;
+  transform: translateX(-1.5rem);
+}
+
+.aiConsultHeaderFacet .aiConsultButton.sapMBtn {
+  height: 2.875rem;
+  padding: 0;
+}
+
+button[id$="aiConsultButton"].sapMBtn {
+  height: 2.875rem;
+  padding: 0;
+}
+
+.aiConsultHeaderFacet .aiConsultButton .sapMBtnInner,
+button[id$="aiConsultButton"] .sapMBtnInner {
+  height: 2.75rem;
+  min-width: 8rem;
+  padding-left: 0.875rem;
+  padding-right: 0.875rem;
+}
+
+.aiConsultHeaderFacet .aiConsultButton .sapMBtnContent,
+button[id$="aiConsultButton"] .sapMBtnContent {
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 2.625rem;
+}
+
+.aiConsultHeaderFacet .aiConsultButton .sapMBtnIcon,
+button[id$="aiConsultButton"] .sapMBtnIcon {
+  font-size: 1.25rem;
+  line-height: 2.625rem;
+}
