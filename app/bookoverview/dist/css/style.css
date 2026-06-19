@@ -1,0 +1,45 @@
+div[id*="FilterBar"][id*="BasicSearchField"].sapMSF {
+  margin-top: 1.125rem;
+  position: relative;
+}
+
+div[id*="FilterBar"][id*="BasicSearchField"].sapMSF::before {
+  color: #556b82;
+  content: "キーワード検索";
+  font-size: 0.75rem;
+  font-weight: 400;
+  left: 0;
+  line-height: 1rem;
+  position: absolute;
+  top: -1.125rem;
+}
+
+button[id*="FilterBar"][id$="btnSearch"] .sapMBtnContent {
+  font-size: 0;
+}
+
+button[id*="FilterBar"][id$="btnSearch"] .sapMBtnContent::after {
+  content: "検索";
+  font-size: 0.875rem;
+}
+
+.sapMObjStatusError .sapMObjStatusText {
+  font-weight: 700;
+}
+
+.sapMObjStatusError .sapMObjStatusIcon {
+  display: none;
+}
+
+.sapMListTbl th,
+.sapMListTbl td,
+.sapMListTbl .sapMText,
+.sapMListTbl .sapMLabel,
+.sapMListTbl .sapMObjectIdentifierTitle,
+.sapMListTbl .sapMObjStatus {
+  text-align: center;
+}
+
+.sapMListTbl .sapMObjStatus {
+  justify-content: center;
+}

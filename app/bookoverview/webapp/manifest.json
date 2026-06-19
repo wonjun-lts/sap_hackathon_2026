@@ -17,7 +17,7 @@
     },
     "dataSources": {
       "mainService": {
-        "uri": "./service/clovers-fiori/",
+        "uri": "/service/clovers-fiori/",
         "type": "OData",
         "settings": {
           "annotations": [],
@@ -91,7 +91,11 @@
       }
     },
     "resources": {
-      "css": []
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ]
     },
     "routing": {
       "config": {},

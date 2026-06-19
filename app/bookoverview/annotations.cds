@@ -36,24 +36,29 @@ annotate service.BookOverviews with @(
     {
       $Type: 'UI.DataField',
       Label: '売上金額',
-      Value: TOTAL_SALES_AMOUNT
+      Value: TOTAL_SALES_AMOUNT_DISPLAY
     },
     {
       $Type: 'UI.DataField',
-      Label: '引当可能数',
+      Label: '販売可能在庫数',
       Value: AVAILABLE_QTY
     },
     {
       $Type: 'UI.DataField',
       Label: '返品リスク',
-      Value: RETURN_RISK_LEVEL
+      Value: RETURN_RISK_LEVEL,
+      Criticality: RETURN_RISK_CRITICALITY
+    },
+    {
+      $Type: 'UI.DataField',
+      Label: '総在庫数',
+      Value: TOTAL_STOCK_QTY
     }
   ],
 
   UI.SelectionFields: [
     TITLE,
     AUTHOR_NAME,
-    GENRE,
     BOOK_STATUS,
     RETURN_RISK_LEVEL
   ],
@@ -114,16 +119,16 @@ annotate service.BookOverviews with @(
       {
         $Type: 'UI.DataField',
         Label: '売上金額',
-        Value: TOTAL_SALES_AMOUNT
+        Value: TOTAL_SALES_AMOUNT_DISPLAY
       },
       {
         $Type: 'UI.DataField',
-        Label: '在庫数',
+        Label: '総在庫数',
         Value: TOTAL_STOCK_QTY
       },
       {
         $Type: 'UI.DataField',
-        Label: '引当可能数',
+        Label: '販売可能在庫数',
         Value: AVAILABLE_QTY
       },
       {
@@ -139,7 +144,8 @@ annotate service.BookOverviews with @(
       {
         $Type: 'UI.DataField',
         Label: '返品リスク',
-        Value: RETURN_RISK_LEVEL
+        Value: RETURN_RISK_LEVEL,
+        Criticality: RETURN_RISK_CRITICALITY
       },
       {
         $Type: 'UI.DataField',
@@ -171,6 +177,15 @@ annotate service.BookOverviews with @(
   ]
 );
 
+annotate service.BookOverviews with {
+  TITLE @Common.Label: '書籍名';
+  AUTHOR_NAME @Common.Label: '著者';
+  BOOK_STATUS @Common.Label: 'ステータス';
+  RETURN_RISK_LEVEL @Common.Label: '返品リスク';
+  TOTAL_SALES_AMOUNT_DISPLAY @Common.Label: '売上金額';
+  TOTAL_STOCK_QTY @Common.Label: '総在庫数';
+};
+
 annotate service.InventorySnapshots with @(
   UI.LineItem: [
     {
@@ -200,7 +215,7 @@ annotate service.InventorySnapshots with @(
     },
     {
       $Type: 'UI.DataField',
-      Label: '引当可能数',
+      Label: '販売可能在庫数',
       Value: AVAILABLE_QTY
     },
     {
