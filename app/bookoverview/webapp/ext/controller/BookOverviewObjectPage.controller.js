@@ -18,10 +18,6 @@ sap.ui.define([], function () {
     }
 
     return {
-        onBackToList: function () {
-            window.history.back();
-        },
-        
         onOpenBookLink: function (oEvent) {
             window.open(buildBookUrl(getObjectPageContext(oEvent)), "_blank", "noopener,noreferrer");
         }
