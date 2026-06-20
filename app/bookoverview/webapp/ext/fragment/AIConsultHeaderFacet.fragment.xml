@@ -1,12 +1,12 @@
 <core:FragmentDefinition
     xmlns="sap.m"
-    xmlns:core="sap.ui.core"
-    core:require="{handler: 'clovers/fiori/bookoverview/ext/controller/BookOverviewObjectPage.controller'}">
+    xmlns:core="sap.ui.core">
     <VBox class="aiConsultHeaderFacet sapUiTinyMarginTop">
         <Button
+            core:require="{handler: 'clovers/fiori/bookoverview/ext/controller/BookOverviewObjectPage.controller'}"
             id="aiConsultButton"
             class="aiConsultButton"
-            text="AIに相談*new"
+            text="AIに相談"
             type="Emphasized"
             icon="sap-icon://discussion-2"
             press="handler.onOpenBookLink" />
