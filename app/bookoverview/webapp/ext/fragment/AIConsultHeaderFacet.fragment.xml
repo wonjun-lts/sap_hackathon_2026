@@ -2,13 +2,11 @@
     xmlns="sap.m"
     xmlns:core="sap.ui.core">
     <VBox class="aiConsultHeaderFacet sapUiTinyMarginTop">
-        <Button
-            core:require="{handler: 'clovers/fiori/bookoverview/ext/controller/BookOverviewObjectPage.controller'}"
-            id="aiConsultButton"
-            class="aiConsultButton"
+        <Link
+            id="aiConsultButtonLink"
+            class="aiConsultButtonLink"
             text="AIに相談"
-            type="Emphasized"
-            icon="sap-icon://discussion-2"
-            press="handler.onOpenBookLink" />
+            href="https://www.google.com/search?q=book"
+            target="_blank" />
     </VBox>
 </core:FragmentDefinition>

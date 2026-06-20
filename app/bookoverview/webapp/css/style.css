@@ -114,6 +114,52 @@ button[id$="aiConsultButton"].sapMBtn {
   padding: 0;
 }
 
+.aiConsultHeaderFacet .aiConsultButtonLink.sapMLnk,
+.aiConsultHeaderFacet .aiConsultButtonLink.sapMLnk:visited {
+  align-items: center;
+  background: #0a6ed1;
+  border: 0.125rem solid #0a6ed1;
+  border-radius: 0.5rem;
+  box-sizing: border-box;
+  color: #fff;
+  display: inline-flex;
+  font-size: 1.125rem;
+  font-weight: 700;
+  height: 2.75rem;
+  justify-content: center;
+  min-width: 8rem;
+  padding-left: 0.875rem;
+  padding-right: 0.875rem;
+  text-decoration: none;
+  text-shadow: none;
+  -webkit-text-fill-color: #fff;
+}
+
+.aiConsultHeaderFacet .aiConsultButtonLink.sapMLnk::before {
+  color: #fff;
+  content: "\e05c";
+  font-family: SAP-icons;
+  font-size: 1.25rem;
+  font-weight: 400;
+  margin-right: 0.375rem;
+  text-decoration: none;
+  text-shadow: none;
+  -webkit-text-fill-color: #fff;
+}
+
+.aiConsultHeaderFacet .aiConsultButtonLink.sapMLnk:hover,
+.aiConsultHeaderFacet .aiConsultButtonLink.sapMLnk:focus,
+.aiConsultHeaderFacet .aiConsultButtonLink.sapMLnk:active {
+  background: #0a6ed1;
+  border-color: #0a6ed1;
+  box-shadow: none;
+  color: #fff;
+  outline: none;
+  text-decoration: none;
+  text-shadow: none;
+  -webkit-text-fill-color: #fff;
+}
+
 .aiConsultHeaderFacet .aiConsultButton .sapMBtnInner,
 button[id$="aiConsultButton"] .sapMBtnInner {
   height: 2.75rem;
